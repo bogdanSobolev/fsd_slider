@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        // "typeRoots": ["./node_modules/@types"],
+        "target": "es6",
+        "module": "commonjs",
+		"moduleResolution": "node",
+		"allowJs": true,
+		"noEmit": true,
+		"strict": true,
+		"isolatedModules": true,
+        "esModuleInterop": true,
+        "sourceMap": false,
+        "outDir": "./dist/",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true
+	},
+	"include": [
+		"src"
+	],
+    "exclude": [
+        "node_modules"
+    ]
+}
