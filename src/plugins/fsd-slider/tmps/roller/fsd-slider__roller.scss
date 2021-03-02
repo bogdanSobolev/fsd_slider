@@ -9,10 +9,11 @@
         width: 30px;
         height: 30px;
         background-color: #6200ee;
-        // border-radius: 50%;
+        border-radius: 50%;
         box-shadow: 0 0 0 0 rgba(98,0,238,.1);
         transition: box-shadow .3s ease-in-out;
-        opacity: .3;
+        opacity: 1;
+        
     }
     &_type{
         &_left{
@@ -32,6 +33,7 @@
     &-input{
         position: absolute;
         pointer-events: none;
+        cursor: pointer;
         -webkit-appearance: none;
         z-index: 4;
         height: 10px;

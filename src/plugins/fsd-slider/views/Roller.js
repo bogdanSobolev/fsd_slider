@@ -4,7 +4,7 @@ import '../tmps/roller/fsd-slider__roller.scss';
 
 
 export default class Roller{
-    constructor(typeRoller, value){
+    constructor(typeRoller, value, handleChangeValue){
         this.$scale = null;
         this.$rollerElem = null;
         this.$rollerInput = null;
@@ -13,6 +13,7 @@ export default class Roller{
         this.sliderMinValue = 0; //model
         this.sliderMaxValue = 100; //model
         this.value = value; //model
+        this.handleChangeValue = handleChangeValue ? handleChangeValue : null;
     }
 
     init($scale){
@@ -34,13 +35,9 @@ export default class Roller{
         this.updatePositionRollerBtn();
 
         this.$rollerInput.on('input', (e) => {
-            // console.log('input');
             this.updatePositionRollerBtn();
+            this.handleChangeValue();
         });
-        // this.$rollerBtn.on('mousedown', (e) => {
-        //     console.log('moseD');
-        //     this.$rollerInput.trigger('input');
-        // })
     }
 
     createRollerElem(){
@@ -59,21 +56,36 @@ export default class Roller{
         this.$rollerElem = $rollerElem;
     }
 
-    setValueRollerInput(value){
-        value ? this.$rollerInput.val(value) : this.$rollerInput.val(this.value);
+    setValue(value){
+        this.value = value;
+    }
+
+    // setValueRollerInput(value){
+    //     value ? this.$rollerInput.val(value) : this.$rollerInput.val(this.value);
+    // }
+    setValueRollerInput(){
+        this.$rollerInput.val(this.value);
+    }
+
+    updateValue(value){
+        if(value){
+            this.setValue(value);
+            this.setValueRollerInput();
+        } else {
+            this.setValue(this.$rollerInput.val())
+        }
+       
     }
 
     setRollerInput(){
         if(this.$rollerElem){
             this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
-            // console.log(this.$rollerInput);
         }
     }
 
     setRollerBtn(){
         if(this.$rollerElem){
             this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
-            // console.log(this.$rollerBtn);
         }
     }
 
@@ -89,9 +101,16 @@ export default class Roller{
     //     // range.style.left = percent + "%";  //позже
     // }
 
+    
+
+    getValue(){
+        return this.value;
+    }
+
     updatePositionRollerBtn(){
         // let percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
-        let percent = ((this.$rollerInput.val() - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
+        this.updateValue();
+        let percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
         if(this.typeRoller == 'right'){
             this.$rollerBtn.css('right', (100 - percent) + "%");
         } else {

@@ -1,6 +1,7 @@
 import * as $ from 'jquery';
-// import $ from 'jquery';
-import Presenter from "./presenters/Presenter";
+// import Presenter from "./presenters/Presenter";
+import Presenter from "./presenters/PresenterTs";
+import Model from "./models/Model";
 import View from "./views/View";
 
 
@@ -27,12 +28,12 @@ export default (function($) {
 		// this.each(function() { main($(this)); });
 		// return this;
 
-		const init = (elem: any) => {
-			
-			// const elem = $(this): jQuery;
+		const init = (elem: JQuery) => {
 			const view = new View(elem);
 			// const view = new View($(this));
-			const presenter = new Presenter(view);
+			const model = new Model();
+			const presenter = new Presenter(view, model);
+
 
 			presenter.init();
 		}
