@@ -4,7 +4,7 @@ import '../tmps/roller/fsd-slider__roller.scss';
 
 
 export default class Roller{
-    $scale: null | JQuery;
+    $scale: JQuery;
     $rollerElem: null | JQuery;
     $rollerInput: null | JQuery;
     $rollerBtn: null | JQuery;
@@ -15,8 +15,8 @@ export default class Roller{
     step: number;
     handleChangeValue?: any; // Изменить на обязательное свойство
 
-    constructor(typeRoller: string, value: number, step: number, minValue: number, maxnValue: number, handleChangeValue?: any){
-        this.$scale = null;
+    constructor($scale: JQuery, typeRoller: string, value: number, step: number, minValue: number, maxnValue: number, handleChangeValue?: any){
+        this.$scale = $scale;
         this.$rollerElem = null;
         this.$rollerInput = null;
         this.$rollerBtn = null;
@@ -28,16 +28,8 @@ export default class Roller{
         this.handleChangeValue = handleChangeValue ? handleChangeValue : null;
     }
 
-    init($scale: JQuery){
-        this.setScale($scale);
-        this.initRollerElem();
-    }
-
-    setScale($scale: JQuery){
-        this.$scale = $scale;
-    }
-
-    initRollerElem(){
+    init(){
+        // this.setScale($scale);
         let $rollerElem = this.createRollerElem();
         this.renderRollerElem($rollerElem);
         this.setRollerElem($rollerElem);
@@ -52,6 +44,26 @@ export default class Roller{
             this.handleChangeValue();
         });
     }
+
+    // setScale($scale: JQuery){
+    //     this.$scale = $scale;
+    // }
+
+    // initRollerElem(){
+    //     let $rollerElem = this.createRollerElem();
+    //     this.renderRollerElem($rollerElem);
+    //     this.setRollerElem($rollerElem);
+    //     this.setRollerInput();
+    //     this.setOptionsRollerInput();
+    //     this.setValueRollerInput();
+    //     this.setRollerBtn();
+    //     this.updatePositionRollerBtn();
+
+    //     this.$rollerInput?.on('input', (e) => {
+    //         this.updatePositionRollerBtn();
+    //         this.handleChangeValue();
+    //     });
+    // }
 
     createRollerElem(){
         let $rollerElem = $(rollerTmp);

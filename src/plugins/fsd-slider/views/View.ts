@@ -56,17 +56,13 @@ export default class View extends Observable{
         sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
     }
 
-    // setValue(value: {left: number, right: number}){
-    //     this.value = value;
-    // }
-
     createRollers(step: number, value: {left: number, right: number}, minValue: number, maxValue: number){
+        let $scale = this.getScaleElem();
         if(this.sliderType == 'range'){
-            const leftRoller = new Roller('left', value.left, step, minValue, maxValue, this.handleChangeValue);
-            const rightRoller = new Roller('right', value.right, step, minValue, maxValue, this.handleChangeValue);
+            const leftRoller = new Roller($scale, 'left', value.left, step, minValue, maxValue, this.handleChangeValue);
+            const rightRoller = new Roller($scale, 'right', value.right, step, minValue, maxValue, this.handleChangeValue);
             this.addRoller(leftRoller);
-            this.addRoller(rightRoller);
-            
+            this.addRoller(rightRoller);            
         }
         //  else {
         //     const roller = new Roller('left', this.value);
@@ -96,9 +92,7 @@ export default class View extends Observable{
 
     initRollers(){
         this.rollers.forEach(item => {
-            if(this.scale){
-                item.roller.init(this.scale.getScale());
-            }
+            item.roller.init();
         });
     }
 
