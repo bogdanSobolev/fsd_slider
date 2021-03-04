@@ -7,7 +7,7 @@ import ProgressBar from './ProgressBar';
 
 
 export default class View extends Observable{
-    value: null | {left: number, right: number};
+    // value: null | {left: number, right: number};
     // step: null | number;
     $rootInput: JQuery;
     $rootElem: null | JQuery;
@@ -19,7 +19,7 @@ export default class View extends Observable{
 
     constructor($rootInput: JQuery){
         super();
-        this.value = null;
+        // this.value = null;
         // this.step = null;
         this.$rootInput = $rootInput;
         this.$rootElem = this.initRootElem();
@@ -32,23 +32,21 @@ export default class View extends Observable{
     }
 
     init(options: any){ // заменить 
-        this.setValue(options.value);
-        this.$rootInput.val(this.value?.left + " -- " + this.value?.right);// заглушка
+        // this.setValue(options.value);
+        this.$rootInput.val(options.value?.left + " -- " + options.value?.right);// заглушка
         this.setSliderType(options.mod);
         
-        this.createRollers(options.step);
+        this.createRollers(options.step, options.value);
         this.initRollers();
         // this.progressBar.init(this.value);
-        this.progressBar.setPosition(this.value);
+        this.progressBar.setPosition(options.value);
 
         this.bindEventListeners();
     }
 
     updateValue(value: {left: number, right: number}){
-        this.setValue(value);
-        if(this.value){
-            this.$rootInput.val(this.value.left + " -- " + this.value.right);
-        }
+        // this.setValue(value);
+        this.$rootInput.val(value.left + " -- " + value.right);
         // this.progressBar.init(value);
         this.progressBar.setPosition(value);
     }
@@ -57,18 +55,16 @@ export default class View extends Observable{
         sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
     }
 
-    setValue(value: {left: number, right: number}){
-        this.value = value;
-    }
+    // setValue(value: {left: number, right: number}){
+    //     this.value = value;
+    // }
 
-    createRollers(step: number){
+    createRollers(step: number, value: {left: number, right: number}){
         if(this.sliderType == 'range'){
-            if(this.value){
-                const leftRoller = new Roller('left', this.value.left, step, this.handleChangeValue);
-                const rightRoller = new Roller('right', this.value.right, step, this.handleChangeValue);
-                this.addRoller(leftRoller);
-                this.addRoller(rightRoller);
-            }
+            const leftRoller = new Roller('left', value.left, step, this.handleChangeValue);
+            const rightRoller = new Roller('right', value.right, step, this.handleChangeValue);
+            this.addRoller(leftRoller);
+            this.addRoller(rightRoller);
             
         }
         //  else {
