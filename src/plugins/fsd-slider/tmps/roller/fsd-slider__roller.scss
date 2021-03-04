@@ -50,5 +50,23 @@
             background-color: red;
             -webkit-appearance: none;
         }
+        &::-moz-range-thumb {
+            pointer-events: all;
+            width: 30px;
+            height: 30px;
+            border-radius: 0;
+            border: 0 none;
+            background-color: red;
+            -webkit-appearance: none;
+        }
+        &::-ms-thumb{
+            pointer-events: all;
+            width: 30px;
+            height: 30px;
+            border-radius: 0;
+            border: 0 none;
+            background-color: red;
+            -webkit-appearance: none;
+        }
     }
 }

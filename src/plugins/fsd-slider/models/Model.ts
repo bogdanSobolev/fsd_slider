@@ -5,6 +5,7 @@ export default class Model extends Observable{
     maxValue: number;
     minValue: number;
     value: {left: number, right: number};
+    step: number;
 
 
     constructor(){
@@ -16,6 +17,7 @@ export default class Model extends Observable{
             left: 40,
             right: 80
         };
+        this.step = 4;
         this.handleUpdatedValue = this.handleUpdatedValue.bind(this);
     }
 
@@ -25,6 +27,7 @@ export default class Model extends Observable{
             maxValue : this.maxValue,
             minValue : this.minValue,
             value : this.value,
+            step: this.step
         }
     }
 

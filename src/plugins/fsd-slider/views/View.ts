@@ -7,6 +7,7 @@ import Roller from './Roller';
 
 export default class View extends Observable{
     value: null | {left: number, right: number};
+    // step: null | number;
     $rootInput: JQuery;
     $rootElem: null | JQuery;
     sliderType: null | string;
@@ -17,6 +18,7 @@ export default class View extends Observable{
     constructor($rootInput: JQuery){
         super();
         this.value = null;
+        // this.step = null;
         this.$rootInput = $rootInput;
         this.$rootElem = this.initRootElem();
         this.sliderType = null;
@@ -28,18 +30,10 @@ export default class View extends Observable{
 
     init(options: any){ // заменить 
         this.setValue(options.value);
-        // if(this.value){
-        //     this.$rootInput.val(this.value.left + " -- " + this.value.right);// заглушка
-        // }
         this.$rootInput.val(this.value?.left + " -- " + this.value?.right);// заглушка
         this.setSliderType(options.mod);
-        // this.initRootElem();
-        // if(this.$rootElem){
-        //     this.scale.init(this.$rootElem);
-        // }
-        // this.scale.init();
         
-        this.createRollers();
+        this.createRollers(options.step);
         this.initRollers();
 
         this.bindEventListeners();
@@ -61,11 +55,11 @@ export default class View extends Observable{
         this.value = value;
     }
 
-    createRollers(){
+    createRollers(step: number){
         if(this.sliderType == 'range'){
             if(this.value){
-                const leftRoller = new Roller('left', this.value.left, this.handleChangeValue);
-                const rightRoller = new Roller('right', this.value.right, this.handleChangeValue);
+                const leftRoller = new Roller('left', this.value.left, step, this.handleChangeValue);
+                const rightRoller = new Roller('right', this.value.right, step, this.handleChangeValue);
                 this.addRoller(leftRoller);
                 this.addRoller(rightRoller);
             }
@@ -74,7 +68,7 @@ export default class View extends Observable{
         //  else {
         //     const roller = new Roller('left', this.value);
         //     this.addRoller(roller);
-        // }
+        // }                                                      // single mod
     }
 
     handleChangeValue(){

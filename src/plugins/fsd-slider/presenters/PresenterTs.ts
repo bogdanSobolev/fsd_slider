@@ -11,10 +11,10 @@ export default class Presenter{
     }
 
     init(){
-        let values = this.model.init();
-        console.log(values);
+        let options = this.model.init();
+        console.log(options);
 
-        this.view.init(values); // range
+        this.view.init(options); // range
         // this.view.init(5, 'range'); // range
 
         this.view.subscribe("changeInput", () => {
