@@ -14,7 +14,7 @@ export default class Model extends Observable{
         this.minValue = 20;
         this.value = {
             left: 40,
-            right: 100
+            right: 80
         };
         this.handleUpdatedValue = this.handleUpdatedValue.bind(this);
     }

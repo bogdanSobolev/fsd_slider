@@ -33,6 +33,5 @@ export default class Presenter{
             this.view.updateValue(this.model.getValue());
             // console.log('updated');
         });
-        
     }
 }

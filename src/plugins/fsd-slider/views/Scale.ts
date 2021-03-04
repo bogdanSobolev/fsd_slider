@@ -1,18 +1,23 @@
 import scaleTmp from '../tmps/scale/scale.html';
 import '../tmps/scale/scale.scss';
 
+
 export default class Scale {
+
+    $rootElem: null | JQuery;
+    $scale: null | JQuery;
+
     constructor(){
         this.$rootElem = null;
         this.$scale = null;
     }
 
-    init($rootElem){
+    init($rootElem: JQuery){
         this.setRootElem($rootElem);
-        this.createScale($rootElem);
+        this.createScale();
     }
 
-    setRootElem($rootElem){
+    setRootElem($rootElem: JQuery){
         this.$rootElem = $rootElem;
     }
     
@@ -22,8 +27,10 @@ export default class Scale {
     }
 
     setScale(){
-        let $scaleElem = this.$rootElem.find('.fsd-slider__scale');
-        this.$scale = $scaleElem;
+        if(this.$rootElem){
+            let $scaleElem = this.$rootElem.find('.fsd-slider__scale');
+            this.$scale = $scaleElem;
+        }
     }
 
     getScale(){
@@ -31,7 +38,8 @@ export default class Scale {
     }
 
     render(){
-        // console.log(this.$rootElem);
-        this.$rootElem.html(scaleTmp);
+        if(this.$rootElem){
+            this.$rootElem?.html(scaleTmp);
+        }
     }
 }
