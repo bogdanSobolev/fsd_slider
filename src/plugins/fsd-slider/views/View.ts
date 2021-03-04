@@ -18,11 +18,11 @@ export default class View extends Observable{
         super();
         this.value = null;
         this.$rootInput = $rootInput;
-        this.$rootElem = null;
+        this.$rootElem = this.initRootElem();
         this.sliderType = null;
         this.handleChangeRootInput = this.handleChangeRootInput.bind(this);
         this.handleChangeValue = this.handleChangeValue.bind(this);
-        this.scale = new Scale();
+        this.scale = new Scale(this.$rootElem);
         this.rollers = []; // typeRoller
     }
 
@@ -33,10 +33,11 @@ export default class View extends Observable{
         // }
         this.$rootInput.val(this.value?.left + " -- " + this.value?.right);// заглушка
         this.setSliderType(options.mod);
-        this.initRootElem();
-        if(this.$rootElem){
-            this.scale.init(this.$rootElem);
-        }
+        // this.initRootElem();
+        // if(this.$rootElem){
+        //     this.scale.init(this.$rootElem);
+        // }
+        // this.scale.init();
         
         this.createRollers();
         this.initRollers();
@@ -69,10 +70,11 @@ export default class View extends Observable{
                 this.addRoller(rightRoller);
             }
             
-        } else {
-            const roller = new Roller('left', this.value);
-            this.addRoller(roller);
         }
+        //  else {
+        //     const roller = new Roller('left', this.value);
+        //     this.addRoller(roller);
+        // }
     }
 
     handleChangeValue(){
@@ -93,7 +95,9 @@ export default class View extends Observable{
 
     initRollers(){
         this.rollers.forEach(item => {
-            item.roller.init(this.scale.getScale());
+            if(this.scale){
+                item.roller.init(this.scale.getScale());
+            }
         });
     }
 
@@ -112,7 +116,8 @@ export default class View extends Observable{
     initRootElem(){
         let $rootElem = this.createRootElem();
         this.renderRootElem($rootElem);
-        this.setRootElem($rootElem);
+        return $rootElem;
+        // this.setRootElem($rootElem);
     }
 
     createRootElem(){
