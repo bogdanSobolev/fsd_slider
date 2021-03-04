@@ -43,6 +43,7 @@ export default class Roller{
             this.updatePositionRollerBtn();
             this.handleChangeValue();
         });
+        
     }
 
     // setScale($scale: JQuery){
