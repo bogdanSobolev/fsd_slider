@@ -5,11 +5,15 @@ import './slider.scss'
 
 let $sliderList = $('.slider');
 
+$sliderList.each(function () {
+    $(this).fsdSlider();
+});
+
 console.log($('.test-div').addClass('test-add-class'));
 
 // const testTs: string = 42;
 
-$sliderList.fsdSlider();
+// $sliderList.fsdSlider();
 
 
 

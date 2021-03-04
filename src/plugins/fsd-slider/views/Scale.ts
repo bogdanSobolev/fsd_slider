@@ -54,6 +54,8 @@ export default class Scale {
         return this.$scale;
     }
 
+    // getScaleElem()
+
     // render(){
     //     if(this.$rootElem){
     //         this.$rootElem?.html(scaleTmp);

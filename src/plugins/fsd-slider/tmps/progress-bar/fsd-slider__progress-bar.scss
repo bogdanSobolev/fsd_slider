@@ -1,0 +1,10 @@
+.fsd-slider{
+    &__progress-bar{
+        position: absolute;
+        // width: 50%;
+        height: 100%;
+        left: 10%;
+        right: 72%;
+        background: red;
+    }
+}

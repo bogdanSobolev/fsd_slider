@@ -3,6 +3,7 @@ import '../tmps/view/fsd-slider.scss';
 import Observable from '../observable/Observable';
 import Scale from './Scale';
 import Roller from './Roller';
+import ProgressBar from './ProgressBar';
 
 
 export default class View extends Observable{
@@ -13,6 +14,7 @@ export default class View extends Observable{
     sliderType: null | string;
     scale: Scale;
     rollers: {roller: Roller}[];
+    progressBar: ProgressBar;
 
 
     constructor($rootInput: JQuery){
@@ -25,6 +27,7 @@ export default class View extends Observable{
         this.handleChangeRootInput = this.handleChangeRootInput.bind(this);
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.scale = new Scale(this.$rootElem);
+        this.progressBar = new ProgressBar(this.getScaleElem());
         this.rollers = []; // typeRoller
     }
 
@@ -35,6 +38,8 @@ export default class View extends Observable{
         
         this.createRollers(options.step);
         this.initRollers();
+        // this.progressBar.init(this.value);
+        this.progressBar.setPosition(this.value);
 
         this.bindEventListeners();
     }
@@ -44,7 +49,8 @@ export default class View extends Observable{
         if(this.value){
             this.$rootInput.val(this.value.left + " -- " + this.value.right);
         }
-        
+        // this.progressBar.init(value);
+        this.progressBar.setPosition(value);
     }
 
     setSliderType(sliderType: string){
@@ -81,6 +87,10 @@ export default class View extends Observable{
             newValue.push(item.roller.getValue());
         });
         return newValue;
+    }
+
+    getScaleElem(){
+        return this.scale.getScale();
     }
 
     addRoller(roller: Roller){
