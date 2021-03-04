@@ -36,9 +36,10 @@ export default class View extends Observable{
         this.$rootInput.val(options.value?.left + " -- " + options.value?.right);// заглушка
         this.setSliderType(options.mod);
         
-        this.createRollers(options.step, options.value);
+        this.createRollers(options.step, options.value, options.minValue, options.maxValue);
         this.initRollers();
         // this.progressBar.init(this.value);
+        this.progressBar.setMinMax(options.minValue, options.maxValue);
         this.progressBar.setPosition(options.value);
 
         this.bindEventListeners();
@@ -59,10 +60,10 @@ export default class View extends Observable{
     //     this.value = value;
     // }
 
-    createRollers(step: number, value: {left: number, right: number}){
+    createRollers(step: number, value: {left: number, right: number}, minValue: number, maxValue: number){
         if(this.sliderType == 'range'){
-            const leftRoller = new Roller('left', value.left, step, this.handleChangeValue);
-            const rightRoller = new Roller('right', value.right, step, this.handleChangeValue);
+            const leftRoller = new Roller('left', value.left, step, minValue, maxValue, this.handleChangeValue);
+            const rightRoller = new Roller('right', value.right, step, minValue, maxValue, this.handleChangeValue);
             this.addRoller(leftRoller);
             this.addRoller(rightRoller);
             

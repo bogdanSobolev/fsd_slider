@@ -15,14 +15,14 @@ export default class Roller{
     step: number;
     handleChangeValue?: any; // Изменить на обязательное свойство
 
-    constructor(typeRoller: string, value: number, step: number, handleChangeValue?: any){
+    constructor(typeRoller: string, value: number, step: number, minValue: number, maxnValue: number, handleChangeValue?: any){
         this.$scale = null;
         this.$rollerElem = null;
         this.$rollerInput = null;
         this.$rollerBtn = null;
         this.typeRoller = typeRoller ? typeRoller : null;
-        this.sliderMinValue = 0; //model
-        this.sliderMaxValue = 100; //model
+        this.sliderMinValue = minValue; //model
+        this.sliderMaxValue = maxnValue; //model
         this.value = value;
         this.step = step;
         this.handleChangeValue = handleChangeValue ? handleChangeValue : null;
@@ -75,6 +75,8 @@ export default class Roller{
 
     setOptionsRollerInput(){
         this.$rollerInput?.attr('step', this.step);
+        this.$rollerInput?.attr('min', this.sliderMinValue);
+        this.$rollerInput?.attr('max', this.sliderMaxValue);
     }
 
     setValueRollerInput(){

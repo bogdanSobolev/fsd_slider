@@ -11,7 +11,7 @@ export default class Model extends Observable{
     constructor(){
         super();
         this.mod = 'range';
-        this.maxValue = 100;
+        this.maxValue = 140;
         this.minValue = 20;
         this.value = {
             left: 40,

@@ -30,6 +30,11 @@ export default class ProgressBar {
     //     }
     // }
 
+    setMinMax(minValue: number, maxValue: number){
+        this.sliderMinValue = minValue;
+        this.sliderMaxValue = maxValue;
+    }
+
     setPosition(value: null | {left: number, right: number}){
         if(value){
             let percentLeft = this.countPersent(value.left);
