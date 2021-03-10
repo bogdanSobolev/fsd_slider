@@ -5,19 +5,17 @@ import Scale from './Scale';
 import Roller from './Roller';
 import ProgressBar from './ProgressBar';
 
-
-export default class View extends Observable{
+export default class View extends Observable {
     // value: null | {left: number, right: number};
     // step: null | number;
     $rootInput: JQuery;
     $rootElem: null | JQuery;
     sliderType: null | string;
     scale: Scale;
-    rollers: {roller: Roller}[];
+    rollers: { roller: Roller }[];
     progressBar: ProgressBar;
 
-
-    constructor($rootInput: JQuery){
+    constructor($rootInput: JQuery) {
         super();
         // this.value = null;
         // this.step = null;
@@ -31,11 +29,10 @@ export default class View extends Observable{
         this.rollers = []; // typeRoller
     }
 
-    init(options: any){ // заменить 
+    init(options: any) { // заменить
         // this.setValue(options.value);
         this.$rootInput.val(options.value?.left + " -- " + options.value?.right);// заглушка
         this.setSliderType(options.mod);
-        
         this.createRollers(options.step, options.value, options.minValue, options.maxValue);
         this.initRollers();
         // this.progressBar.init(this.value);
@@ -45,18 +42,18 @@ export default class View extends Observable{
         this.bindEventListeners();
     }
 
-    updateValue(value: {left: number, right: number}){
+    updateValue(value: {left: number, right: number}) {
         // this.setValue(value);
         this.$rootInput.val(value.left + " -- " + value.right);
         // this.progressBar.init(value);
         this.progressBar.setPosition(value);
     }
 
-    setSliderType(sliderType: string){
+    setSliderType(sliderType: string) {
         sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
     }
 
-    createRollers(step: number, value: {left: number, right: number}, minValue: number, maxValue: number){
+    createRollers(step: number, value: {left: number, right: number}, minValue: number, maxValue: number) {
         let $scale = this.getScaleElem();
         if(this.sliderType == 'range'){
             const leftRoller = new Roller($scale, 'left', value.left, step, minValue, maxValue, this.handleChangeValue);
@@ -70,11 +67,11 @@ export default class View extends Observable{
         // }                                                      // single mod
     }
 
-    handleChangeValue(){
+    handleChangeValue() {
         this.broadcast("changeValue");
     }
 
-    getValue(){
+    getValue() {
         let newValue: number[] = [];
         this.rollers.forEach((item: {roller: Roller}) => {
             newValue.push(item.roller.getValue());
@@ -82,49 +79,49 @@ export default class View extends Observable{
         return newValue;
     }
 
-    getScaleElem(){
+    getScaleElem() {
         return this.scale.getScale();
     }
 
-    addRoller(roller: Roller){
+    addRoller(roller: Roller) {
         this.rollers.push({roller: roller});
     }
 
-    initRollers(){
+    initRollers() {
         this.rollers.forEach(item => {
             item.roller.init();
         });
     }
 
-    bindEventListeners(){
+    bindEventListeners() {
         this.$rootInput.on("change", this.handleChangeRootInput);
     }
 
-    handleChangeRootInput(){
+    handleChangeRootInput() {
         this.broadcast("changeInput");
     }
 
-    consoleVal(){
+    consoleVal() {
         console.log(this.getValue());
     }
 
-    initRootElem(){
+    initRootElem() {
         let $rootElem = this.createRootElem();
         this.renderRootElem($rootElem);
         return $rootElem;
         // this.setRootElem($rootElem);
     }
 
-    createRootElem(){
+    createRootElem() {
         let $rootElem = $('<div class="fsd-slider"></div>');
         return $rootElem;
     }
 
-    renderRootElem($rootElem: JQuery){
+    renderRootElem($rootElem: JQuery) {
         this.$rootInput.after($rootElem);
     }
 
-    setRootElem($rootElem: JQuery){
+    setRootElem($rootElem: JQuery) {
         this.$rootElem = $rootElem;
     }
 }

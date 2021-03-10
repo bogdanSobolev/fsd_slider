@@ -1,0 +1,15 @@
+{
+    "env": {
+        "es6": true
+    },
+    "parserOptions": {
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["fsd"],
+    "extends" : ["airbnb-typescript/base", "plugin:fsd/all"],
+    "rules": {
+        "indent": ["error", 4],
+        "@typescript-eslint/indent": ["error", 4]
+    }
+}
