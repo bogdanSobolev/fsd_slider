@@ -9,10 +9,15 @@ export default class View extends Observable {
     // value: null | {left: number, right: number};
     // step: null | number;
     $rootInput: JQuery;
+
     $rootElem: null | JQuery;
+
     sliderType: null | string;
+
     scale: Scale;
+
     rollers: { roller: Roller }[];
+
     progressBar: ProgressBar;
 
     constructor($rootInput: JQuery) {
@@ -31,7 +36,7 @@ export default class View extends Observable {
 
     init(options: any) { // заменить
         // this.setValue(options.value);
-        this.$rootInput.val(options.value?.left + " -- " + options.value?.right);// заглушка
+        this.$rootInput.val(`${options.value?.left} -- ${options.value?.right}`);// заглушка
         this.setSliderType(options.mod);
         this.createRollers(options.step, options.value, options.minValue, options.maxValue);
         this.initRollers();
@@ -42,24 +47,25 @@ export default class View extends Observable {
         this.bindEventListeners();
     }
 
-    updateValue(value: {left: number, right: number}) {
+    updateValue(value: { left: number, right: number }) {
         // this.setValue(value);
-        this.$rootInput.val(value.left + " -- " + value.right);
+        this.$rootInput.val(`${value.left} -- ${value.right}`);
         // this.progressBar.init(value);
         this.progressBar.setPosition(value);
     }
 
     setSliderType(sliderType: string) {
-        sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
+        // sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
+        this.sliderType = sliderType;
     }
 
-    createRollers(step: number, value: {left: number, right: number}, minValue: number, maxValue: number) {
-        let $scale = this.getScaleElem();
-        if(this.sliderType == 'range'){
+    createRollers(step: number, value: { left: number, right: number }, minValue: number, maxValue: number) { // аргументы сделать объектом
+        const $scale = this.getScaleElem();
+        if (this.sliderType === 'range') {
             const leftRoller = new Roller($scale, 'left', value.left, step, minValue, maxValue, this.handleChangeValue);
             const rightRoller = new Roller($scale, 'right', value.right, step, minValue, maxValue, this.handleChangeValue);
             this.addRoller(leftRoller);
-            this.addRoller(rightRoller);            
+            this.addRoller(rightRoller);
         }
         //  else {
         //     const roller = new Roller('left', this.value);
@@ -68,12 +74,12 @@ export default class View extends Observable {
     }
 
     handleChangeValue() {
-        this.broadcast("changeValue");
+        this.broadcast('changeValue');
     }
 
     getValue() {
-        let newValue: number[] = [];
-        this.rollers.forEach((item: {roller: Roller}) => {
+        const newValue: number[] = [];
+        this.rollers.forEach((item: { roller: Roller }) => {
             newValue.push(item.roller.getValue());
         });
         return newValue;
@@ -84,21 +90,21 @@ export default class View extends Observable {
     }
 
     addRoller(roller: Roller) {
-        this.rollers.push({roller: roller});
+        this.rollers.push({ roller });
     }
 
     initRollers() {
-        this.rollers.forEach(item => {
+        this.rollers.forEach((item) => {
             item.roller.init();
         });
     }
 
     bindEventListeners() {
-        this.$rootInput.on("change", this.handleChangeRootInput);
+        this.$rootInput.on('change', this.handleChangeRootInput);
     }
 
     handleChangeRootInput() {
-        this.broadcast("changeInput");
+        this.broadcast('changeInput');
     }
 
     consoleVal() {
@@ -106,14 +112,14 @@ export default class View extends Observable {
     }
 
     initRootElem() {
-        let $rootElem = this.createRootElem();
+        const $rootElem = this.createRootElem();
         this.renderRootElem($rootElem);
         return $rootElem;
         // this.setRootElem($rootElem);
     }
 
     createRootElem() {
-        let $rootElem = $('<div class="fsd-slider"></div>');
+        const $rootElem = $('<div class="fsd-slider"></div>');
         return $rootElem;
     }
 

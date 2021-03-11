@@ -1,13 +1,12 @@
 import scaleTmp from '../tmps/scale/scale.html';
 import '../tmps/scale/scale.scss';
 
-
 export default class Scale {
-
     $rootElem: JQuery;
+
     $scale: JQuery;
 
-    constructor($roorElem: JQuery){
+    constructor($roorElem: JQuery) {
         this.$rootElem = $roorElem;
         this.$scale = this.initScale();
     }
@@ -17,29 +16,29 @@ export default class Scale {
     //     // this.createScale();
     // }
 
-    setRootElem($rootElem: JQuery){
+    setRootElem($rootElem: JQuery) {
         this.$rootElem = $rootElem;
     }
-    
+
     // createScale(){
     //     this.render();
     //     this.setScale();
     // }
 
-    initScale(){
+    initScale() {
         // this.render();
         // this.setScale();
-        let $scale = this.createScale();
+        const $scale = this.createScale();
         this.renderScale($scale);
         return $scale;
     }
 
-    createScale(){
-        let $scale = $(scaleTmp);
+    createScale() {
+        const $scale = $(scaleTmp);
         return $scale;
     }
 
-    renderScale($scale: JQuery){
+    renderScale($scale: JQuery) {
         this.$rootElem?.append($scale);
     }
 
@@ -50,7 +49,7 @@ export default class Scale {
     //     }
     // }
 
-    getScale(){
+    getScale() {
         return this.$scale;
     }
 

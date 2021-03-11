@@ -4,4 +4,4 @@
 
 interface JQuery {
     fsdSlider: fsdSlider;
-  }
+}

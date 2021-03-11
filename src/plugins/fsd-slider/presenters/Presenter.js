@@ -11,6 +11,6 @@
 //             // console.log(this);
 //             this.view.consoleVal();
 //         });
-        
+
 //     }
 // }

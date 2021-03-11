@@ -1,35 +1,32 @@
-import Model from "../models/Model";
-import View from "../views/View";
+import Model from '../models/Model';
+import View from '../views/View';
 
-export default class Presenter{
+export default class Presenter {
     view: View;
+
     model: Model;
 
-    constructor(view: View, model: Model){
+    constructor(view: View, model: Model) {
         this.view = view;
         this.model = model;
     }
 
-    init(){
-        let options = this.model.init();
-        console.log(options);
-
+    init() {
+        const options = this.model.init();
         this.view.init(options); // range
         // this.view.init(5, 'range'); // range
 
-        this.view.subscribe("changeInput", () => {
+        this.view.subscribe('changeInput', () => {
             this.view.consoleVal();
         });
 
-        this.view.subscribe("changeValue", () => {
-
+        this.view.subscribe('changeValue', () => {
             // this.view.consoleVal();
             // console.log(this.view.getValue());
             this.model.updateValue(this.view.getValue());
         });
 
-        this.model.subscribe("updatedValue", () => {
-
+        this.model.subscribe('updatedValue', () => {
             this.view.updateValue(this.model.getValue());
             // console.log('updated');
         });
