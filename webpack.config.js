@@ -6,6 +6,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+    devtool: 'inline-source-map',
     resolve: {
         extensions: ['.js', '.ts'],
         alias: {
