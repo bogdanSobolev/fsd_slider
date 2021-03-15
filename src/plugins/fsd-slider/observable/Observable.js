@@ -23,6 +23,8 @@ export default class Observable {
     broadcast(type, data) {
         //   if (!this._observers[type])
         //     return console.log(`No subscribers for "${type}"`);
+        // console.log('this.observers[type]');
+        // console.log(this.observers[type]);
         this.observers[type].forEach((observer) => observer(data));
     }
 }

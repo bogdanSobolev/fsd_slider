@@ -39,7 +39,7 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     // reporters: ['progress'],
     
-    reporters: ['kjhtml'],
+    reporters: ['progress', 'kjhtml'],
     // reporters: ['progress'],
 
 
@@ -83,83 +83,18 @@ module.exports = function(config) {
     concurrency: Infinity,
 
     // webpack: webpackConfig,
+
     webpack: {
-      resolve: {
-        extensions: ['.js', '.ts']
-      },
-      module: {
-        rules: [
-                {
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    use: ['babel-loader'],
-                },
-                {
-                    test: /\.ts$/,
-                    exclude: /node_modules/,
-                    use: ['babel-loader'],
-                },
-                {
-                    test: /\.html$/,
-                    use: ['html-loader']
-                },
-                // {
-                //     test: /\.pug$/,
-                //     use: ['html-loader', 'pug-html-loader']
-                // },
-                {
-                    test: /\.pug$/,
-                    use: ['pug-loader']
-                },
-                // {
-                //     test: /\.(scss|css)$/,
-                //     use: [MiniCssExtractPlugin.loader,
-                //         {
-                //             loader: 'css-loader',
-                //             options: {
-                //                 url: true,
-                //             },
-                //         },
-                //         'postcss-loader',
-                //         // {
-                //         //     loader: "resolve-url-loader",
-                //         //     options: {
-                //         //         absolute: true
-                //         //     }
-                //         // }, 
-                //         { 
-                //             loader : 'sass-loader',
-                //             options: {
-                //                 sourceMap: true
-                //             }
-                //         },
-                //         // {
-                //         //     loader: 'sass-resources-loader',
-                //         //     options: {
-                //         //         resources: './src/scss/resources.scss'
-                //         //     }
-                //         // }
-                //     ],
-                // },
-            ],
-        },
-        optimization: {
-            splitChunks: {
-                chunks: "all",
-                minSize: 1,
-                minChunks: 2
-            },
-        },
+      resolve: webpackConfig.resolve,
+      module: webpackConfig.module,
       stats: {
-          colors: true,
-          modules: true,
-          reasons: true,
-          errorDetails: true
+        colors: true,
+        modules: true,
+        reasons: true,
+        errorDetails: true
       },
       devtool: 'inline-source-map',
     },
-    // webpackMiddleware: {
-    //   noInfo:true
-    // }
+    
   })
 }

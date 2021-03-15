@@ -25,7 +25,6 @@ export default class Model extends Observable {
     }
 
     init() {
-        console.log('model init');
         return {
             mod: this.mod,
             maxValue: this.maxValue,
