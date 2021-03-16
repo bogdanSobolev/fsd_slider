@@ -26,10 +26,17 @@ export default class ProgressBar {
         this.sliderMaxValue = maxValue;
     }
 
-    setPosition(value: null | { left: number, right: number }) {
+    setPosition(value: null | { left: number, right?: number }) {
         if (value) {
-            const percentLeft = this.countPersent(value.left);
-            const percentRight = this.countPersent(value.right);
+            let percentLeft: number;
+            let percentRight: number;
+            if(value.right){
+                percentLeft = this.countPersent(value.left);
+                percentRight = this.countPersent(value.right);
+            } else {
+                percentLeft = 0;
+                percentRight = this.countPersent(value.left);
+            }
             this.$progressBar.css('left', `${percentLeft}%`);
             this.$progressBar.css('right', `${100 - percentRight}%`);
         }

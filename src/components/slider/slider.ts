@@ -6,5 +6,5 @@ import './slider.scss';
 const $sliderList = $('.slider');
 
 $sliderList.each(function () {
-    $(this).fsdSlider();
+    $(this).fsdSlider({mod: 'range', value: {left: "32", right: 42}, maxValue: 99});
 });

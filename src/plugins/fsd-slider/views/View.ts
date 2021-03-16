@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import '../tmps/view/fsd-slider.scss';
+import {Options} from '../types';
 import Observable from '../observable/Observable';
 import Scale from './Scale';
 import Roller from './Roller';
@@ -34,11 +35,16 @@ export default class View extends Observable {
         this.rollers = []; // typeRoller
     }
 
-    init(options: any) { // заменить
+    init(options: Options) { // заменить
         // this.setValue(options.value);
-        this.$rootInput.val(`${options.value?.left} -- ${options.value?.right}`);// заглушка
+        console.log(options);
         this.setSliderType(options.mod);
-        this.createRollers(options.step, options.value, options.minValue, options.maxValue);
+        if(this.sliderType == 'range'){
+            this.$rootInput.val(`${options.value?.left} -- ${options.value?.right}`);// заглушка //setRootInputValue()
+        } else {
+            this.$rootInput.val(`${options.value?.left}}`);// заглушка //etRootInputValue()
+        }
+        this.createRollers({step: options.step, value: options.value, minValue: options.minValue, maxValue: options.maxValue});
         this.initRollers();
         // this.progressBar.init(this.value);
         this.progressBar.setMinMax(options.minValue, options.maxValue);
@@ -47,9 +53,13 @@ export default class View extends Observable {
         this.bindEventListeners();
     }
 
-    updateValue(value: { left: number, right: number }) {
+    updateValue(value: { left: number, right?: number }) {
         // this.setValue(value);
-        this.$rootInput.val(`${value.left} -- ${value.right}`);
+        if(this.sliderType == 'range'){
+            this.$rootInput.val(`${value.left} -- ${value.right}`);
+        } else {
+            this.$rootInput.val(`${value.left}`);
+        }
         // this.progressBar.init(value);
         this.progressBar.setPosition(value);
     }
@@ -59,18 +69,17 @@ export default class View extends Observable {
         this.sliderType = sliderType;
     }
 
-    createRollers(step: number, value: { left: number, right: number }, minValue: number, maxValue: number) { // аргументы сделать объектом
+    createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) { // аргументы сделать объектом
         const $scale = this.getScaleElem();
-        if (this.sliderType === 'range') {
-            const leftRoller = new Roller($scale, 'left', value.left, step, minValue, maxValue, this.handleChangeValue);
-            const rightRoller = new Roller($scale, 'right', value.right, step, minValue, maxValue, this.handleChangeValue);
+        if (this.sliderType === 'range' && options.value.right) {
+            const leftRoller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+            const rightRoller = new Roller($scale, 'right', options.value.right, options.step, options.minValue, options.maxValue, this.handleChangeValue);
             this.addRoller(leftRoller);
             this.addRoller(rightRoller);
-        }
-        //  else {
-        //     const roller = new Roller('left', this.value);
-        //     this.addRoller(roller);
-        // }                                                      // single mod
+        } else {
+            const roller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+            this.addRoller(roller);
+        }                                                      // single mod
     }
 
     handleChangeValue() {
