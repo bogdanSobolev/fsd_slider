@@ -23,25 +23,25 @@ export default class Roller {
 
     handleChangeValue?: any; // Изменить на обязательное свойство
 
-    constructor(
+    constructor(options: {
         $scale: JQuery,
         typeRoller: string,
         value: number,
         step: number,
         minValue: number,
-        maxnValue: number,
+        maxValue: number,
         handleChangeValue?: any,
-    ) {
-        this.$scale = $scale;
+    }) {
+        this.$scale = options.$scale;
         this.$rollerElem = null;
         this.$rollerInput = null;
         this.$rollerBtn = null;
-        this.typeRoller = typeRoller || null;
-        this.sliderMinValue = minValue; // model
-        this.sliderMaxValue = maxnValue; // model
-        this.value = value;
-        this.step = step;
-        this.handleChangeValue = handleChangeValue || null;
+        this.typeRoller = options.typeRoller || null;
+        this.sliderMinValue = options.minValue; // model
+        this.sliderMaxValue = options.maxValue; // model
+        this.value = options.value;
+        this.step = options.step;
+        this.handleChangeValue = options.handleChangeValue || null;
     }
 
     init() {

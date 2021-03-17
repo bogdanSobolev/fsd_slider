@@ -36,19 +36,17 @@ export default class View extends Observable {
     }
 
     init(options: Options) { // заменить
-        // this.setValue(options.value);
-        console.log(options);
-        this.setSliderType(options.mod);
+        let {mod, value, step, minValue, maxValue} = options;
+        this.setSliderType(mod);
         if(this.sliderType == 'range'){
-            this.$rootInput.val(`${options.value?.left} -- ${options.value?.right}`);// заглушка //setRootInputValue()
+            this.$rootInput.val(`${value?.left} -- ${value?.right}`);// заглушка //setRootInputValue()
         } else {
-            this.$rootInput.val(`${options.value?.left}}`);// заглушка //etRootInputValue()
+            this.$rootInput.val(`${value?.left}}`);// заглушка //etRootInputValue()
         }
-        this.createRollers({step: options.step, value: options.value, minValue: options.minValue, maxValue: options.maxValue});
+        this.createRollers({step: step, value: value, minValue: minValue, maxValue: maxValue});
         this.initRollers();
-        // this.progressBar.init(this.value);
-        this.progressBar.setMinMax(options.minValue, options.maxValue);
-        this.progressBar.setPosition(options.value);
+        this.progressBar.setMinMax(minValue, maxValue);
+        this.progressBar.setPosition(value);
 
         this.bindEventListeners();
     }
@@ -69,17 +67,55 @@ export default class View extends Observable {
         this.sliderType = sliderType;
     }
 
-    createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) { // аргументы сделать объектом
+    // createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) {
+    //     const $scale = this.getScaleElem();
+    //     if (this.sliderType === 'range' && options.value.right) {
+    //         const leftRoller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+    //         const rightRoller = new Roller($scale, 'right', options.value.right, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+    //         this.addRoller(leftRoller);
+    //         this.addRoller(rightRoller);
+    //     } else {
+    //         const roller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+    //         this.addRoller(roller);
+    //     }
+    // }
+
+    createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) {
+        let{step, value, minValue, maxValue,} = options;
         const $scale = this.getScaleElem();
-        if (this.sliderType === 'range' && options.value.right) {
-            const leftRoller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
-            const rightRoller = new Roller($scale, 'right', options.value.right, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+        if (this.sliderType === 'range' && value.right) {
+            const leftRoller = new Roller({
+                $scale: $scale,
+                typeRoller: 'left',
+                value: value.left,
+                step: step,
+                minValue: minValue,
+                maxValue: maxValue,
+                handleChangeValue: this.handleChangeValue
+            });
+            const rightRoller = new Roller({
+                $scale: $scale,
+                typeRoller: 'right',
+                value: value.right,
+                step: step,
+                minValue: minValue,
+                maxValue: maxValue,
+                handleChangeValue: this.handleChangeValue
+            });
             this.addRoller(leftRoller);
             this.addRoller(rightRoller);
         } else {
-            const roller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
+            const roller = new Roller({
+                $scale: $scale,
+                typeRoller: 'left',
+                value: value.left,
+                step: step,
+                minValue: minValue,
+                maxValue: maxValue,
+                handleChangeValue: this.handleChangeValue
+            });
             this.addRoller(roller);
-        }                                                      // single mod
+        }
     }
 
     handleChangeValue() {
