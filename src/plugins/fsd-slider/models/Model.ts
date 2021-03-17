@@ -42,12 +42,11 @@ export default class Model extends Observable {
     }
 
     setMod(value: string){
-        if(value === 'range' || value === 'single'){
+        const isValidValueMod: boolean = value === 'range' || value === 'single';
+        if(isValidValueMod){
             this.mod = value;
-            
         } else {
             this.mod = defaultOptions.mod;
-            // return this.mod
         }
         return this.mod
     }
@@ -83,15 +82,19 @@ export default class Model extends Observable {
     }
 
     setValue(value: number | string | {left: number | string, right: number | string}){
-        if (this.mod == 'range' && typeof value == 'object'){
-            const valueObjNumbers: {left: number, right: number} = {
+        const isModRange = this.mod == 'range';
+        if (isModRange){
+            if(typeof value == 'object'){
+                const valueObjNumbers: {left: number, right: number} = {
                 left: Number(value.left),
                 right: Number(value.right)
-            }
-            if(valueObjNumbers.left && valueObjNumbers.right){
-                this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
-            } else {
-                this.value = defaultOptions.value;
+                }
+                const isValueObjectNumbersValuesDefined = valueObjNumbers.left && valueObjNumbers.right;
+                if(isValueObjectNumbersValuesDefined){
+                    this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
+                } else {
+                    this.value = defaultOptions.value;
+                }
             }
         } else {
             const valueNum = Number(value);
@@ -99,7 +102,6 @@ export default class Model extends Observable {
                 this.value = { left: valueNum };
             }
         }
-        console.log(this.value);
         return this.value;
     }
 

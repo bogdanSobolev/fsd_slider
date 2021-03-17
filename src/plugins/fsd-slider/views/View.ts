@@ -83,37 +83,23 @@ export default class View extends Observable {
     createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) {
         let{step, value, minValue, maxValue,} = options;
         const $scale = this.getScaleElem();
+        const rollerOptions = {
+            $scale: $scale,
+            typeRoller: 'left',
+            value: value.left,
+            step: step,
+            minValue: minValue,
+            maxValue: maxValue,
+            handleChangeValue: this.handleChangeValue
+        };
         if (this.sliderType === 'range' && value.right) {
-            const leftRoller = new Roller({
-                $scale: $scale,
-                typeRoller: 'left',
-                value: value.left,
-                step: step,
-                minValue: minValue,
-                maxValue: maxValue,
-                handleChangeValue: this.handleChangeValue
-            });
-            const rightRoller = new Roller({
-                $scale: $scale,
-                typeRoller: 'right',
-                value: value.right,
-                step: step,
-                minValue: minValue,
-                maxValue: maxValue,
-                handleChangeValue: this.handleChangeValue
-            });
+            
+            const leftRoller = new Roller(rollerOptions);
+            const rightRoller = new Roller({...rollerOptions, ...{typeRoller: 'right', value: value.right}});
             this.addRoller(leftRoller);
             this.addRoller(rightRoller);
         } else {
-            const roller = new Roller({
-                $scale: $scale,
-                typeRoller: 'left',
-                value: value.left,
-                step: step,
-                minValue: minValue,
-                maxValue: maxValue,
-                handleChangeValue: this.handleChangeValue
-            });
+            const roller = new Roller(rollerOptions);
             this.addRoller(roller);
         }
     }
