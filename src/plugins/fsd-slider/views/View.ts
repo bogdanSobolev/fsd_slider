@@ -7,8 +7,6 @@ import Roller from './Roller';
 import ProgressBar from './ProgressBar';
 
 export default class View extends Observable {
-    // value: null | {left: number, right: number};
-    // step: null | number;
     $rootInput: JQuery;
 
     $rootElem: null | JQuery;
@@ -23,8 +21,6 @@ export default class View extends Observable {
 
     constructor($rootInput: JQuery) {
         super();
-        // this.value = null;
-        // this.step = null;
         this.$rootInput = $rootInput;
         this.$rootElem = this.initRootElem();
         this.sliderType = null;
@@ -32,10 +28,10 @@ export default class View extends Observable {
         this.handleChangeValue = this.handleChangeValue.bind(this);
         this.scale = new Scale(this.$rootElem);
         this.progressBar = new ProgressBar(this.getScaleElem());
-        this.rollers = []; // typeRoller
+        this.rollers = [];
     }
 
-    init(options: Options) { // заменить
+    init(options: Options) {
         let {mod, value, step, minValue, maxValue} = options;
         this.setSliderType(mod);
         if(this.sliderType == 'range'){
@@ -52,33 +48,17 @@ export default class View extends Observable {
     }
 
     updateValue(value: { left: number, right?: number }) {
-        // this.setValue(value);
         if(this.sliderType == 'range'){
             this.$rootInput.val(`${value.left} -- ${value.right}`);
         } else {
             this.$rootInput.val(`${value.left}`);
         }
-        // this.progressBar.init(value);
         this.progressBar.setPosition(value);
     }
 
     setSliderType(sliderType: string) {
-        // sliderType ? this.sliderType = sliderType : this.sliderType = this.sliderType;
         this.sliderType = sliderType;
     }
-
-    // createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) {
-    //     const $scale = this.getScaleElem();
-    //     if (this.sliderType === 'range' && options.value.right) {
-    //         const leftRoller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
-    //         const rightRoller = new Roller($scale, 'right', options.value.right, options.step, options.minValue, options.maxValue, this.handleChangeValue);
-    //         this.addRoller(leftRoller);
-    //         this.addRoller(rightRoller);
-    //     } else {
-    //         const roller = new Roller($scale, 'left', options.value.left, options.step, options.minValue, options.maxValue, this.handleChangeValue);
-    //         this.addRoller(roller);
-    //     }
-    // }
 
     createRollers(options: {step: number, value: { left: number, right?: number }, minValue: number, maxValue: number}) {
         let{step, value, minValue, maxValue,} = options;
@@ -146,7 +126,6 @@ export default class View extends Observable {
         const $rootElem = this.createRootElem();
         this.renderRootElem($rootElem);
         return $rootElem;
-        // this.setRootElem($rootElem);
     }
 
     createRootElem() {

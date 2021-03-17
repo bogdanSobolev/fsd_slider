@@ -37,15 +37,14 @@ export default class Roller {
         this.$rollerInput = null;
         this.$rollerBtn = null;
         this.typeRoller = options.typeRoller || null;
-        this.sliderMinValue = options.minValue; // model
-        this.sliderMaxValue = options.maxValue; // model
+        this.sliderMinValue = options.minValue;
+        this.sliderMaxValue = options.maxValue;
         this.value = options.value;
         this.step = options.step;
         this.handleChangeValue = options.handleChangeValue || null;
     }
 
     init() {
-        // this.setScale($scale);
         const $rollerElem = this.createRollerElem();
         this.renderRollerElem($rollerElem);
         this.setRollerElem($rollerElem);
@@ -56,17 +55,9 @@ export default class Roller {
         this.updatePositionRollerBtn();
 
         this.bindEventListeners();
-        // this.$rollerInput?.on('input', (e) => {
-        //     this.updatePositionRollerBtn();
-        //     this.handleChangeValue();
-        // });
     }
 
     bindEventListeners() {
-        // this.$rollerInput?.on('input', () => {
-        //     this.updatePositionRollerBtn();
-        //     this.handleChangeValue();
-        // });
         this.$rollerInput?.on('input', this.inputHandlers.bind(this));
     }
 
@@ -74,26 +65,6 @@ export default class Roller {
         this.updatePositionRollerBtn();
         this.handleChangeValue();
     }
-
-    // setScale($scale: JQuery){
-    //     this.$scale = $scale;
-    // }
-
-    // initRollerElem(){
-    //     let $rollerElem = this.createRollerElem();
-    //     this.renderRollerElem($rollerElem);
-    //     this.setRollerElem($rollerElem);
-    //     this.setRollerInput();
-    //     this.setOptionsRollerInput();
-    //     this.setValueRollerInput();
-    //     this.setRollerBtn();
-    //     this.updatePositionRollerBtn();
-
-    //     this.$rollerInput?.on('input', (e) => {
-    //         this.updatePositionRollerBtn();
-    //         this.handleChangeValue();
-    //     });
-    // }
 
     createRollerElem() {
         const $rollerElem = $(rollerTmp);

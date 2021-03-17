@@ -1,15 +1,3 @@
-// interface StringOptionsKeys {
-//     [key: string]: string | number | object ;
-// }
-  
-//   interface IDevice extends IObjectKeys {
-//     id: number;
-//     room_id: number;
-//     name: string;
-//     type: string;
-//     description: string;
-//   }
-
 export interface Options {
     mod: string;
     maxValue: number;

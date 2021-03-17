@@ -13,22 +13,18 @@ export default class Presenter {
 
     init() {
         const options = this.model.init();
-        this.view.init(options); // range
-        // this.view.init(5, 'range'); // range
+        this.view.init(options);
 
         this.view.subscribe('changeInput', () => {
             this.view.consoleVal();
         });
 
         this.view.subscribe('changeValue', () => {
-            // this.view.consoleVal();
-            // console.log(this.view.getValue());
             this.model.updateValue(this.view.getValue());
         });
 
         this.model.subscribe('updatedValue', () => {
             this.view.updateValue(this.model.getValue());
-            // console.log('updated');
         });
     }
 }

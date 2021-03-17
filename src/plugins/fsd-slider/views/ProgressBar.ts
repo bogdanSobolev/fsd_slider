@@ -3,18 +3,15 @@ import progressBarTmp from '../tmps/progress-bar/fsd-slider__progress-bar.html';
 import '../tmps/progress-bar/fsd-slider__progress-bar.scss';
 
 export default class ProgressBar {
-    // $rootElem: JQuery;
     $scale: JQuery;
 
     $progressBar: JQuery;
 
-    // value: null | {left: number, right: number};
     sliderMinValue: number;
 
     sliderMaxValue: number;
 
     constructor($scale: JQuery) {
-        // this.value = null;
         this.$scale = $scale;
         this.sliderMinValue = 0; // model
         this.sliderMaxValue = 100; // model
@@ -42,17 +39,9 @@ export default class ProgressBar {
         }
     }
 
-    // udpdateValue(value: {left: number, right: number}){
-
-    // }
-
     countPersent(value: number) {
         return ((value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
     }
-
-    // setValue(value: null | {left: number, right: number}){
-    //     this.value = value;
-    // }
 
     initProgressBar() {
         const $progressBar: JQuery = this.createProgressBar();

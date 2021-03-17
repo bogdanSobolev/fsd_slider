@@ -28,22 +28,3 @@ export default class Observable {
         this.observers[type].forEach((observer) => observer(data));
     }
 }
-// export default class Observable {
-
-//     constructor() {
-//         this.observers = [];
-//     }
-
-//     subscribe(fn) {
-//         console.log(this.observers);
-//         this.observers.push(fn);
-//     }
-
-//     unsubscribe(fn) {
-//         this.observers = this.observers.filter((subscriber) => subscriber !== fn);
-//     }
-
-//     broadcast(data) {
-//         this.observers.forEach((subscriber) => subscriber(data));
-//     }
-// }

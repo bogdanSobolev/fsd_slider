@@ -11,23 +11,11 @@ export default class Scale {
         this.$scale = this.initScale();
     }
 
-    // init(){
-    //     // this.setRootElem($rootElem);
-    //     // this.createScale();
-    // }
-
     setRootElem($rootElem: JQuery) {
         this.$rootElem = $rootElem;
     }
 
-    // createScale(){
-    //     this.render();
-    //     this.setScale();
-    // }
-
     initScale() {
-        // this.render();
-        // this.setScale();
         const $scale = this.createScale();
         this.renderScale($scale);
         return $scale;
@@ -42,22 +30,7 @@ export default class Scale {
         this.$rootElem?.append($scale);
     }
 
-    // setScale(){
-    //     if(this.$rootElem){
-    //         let $scaleElem = this.$rootElem.find('.fsd-slider__scale');
-    //         this.$scale = $scaleElem;
-    //     }
-    // }
-
     getScale() {
         return this.$scale;
     }
-
-    // getScaleElem()
-
-    // render(){
-    //     if(this.$rootElem){
-    //         this.$rootElem?.html(scaleTmp);
-    //     }
-    // }
 }

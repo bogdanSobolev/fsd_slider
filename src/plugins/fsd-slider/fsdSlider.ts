@@ -5,9 +5,6 @@ import View from './views/View';
 import {UserOptions} from './types';
 
 export default (function ($) {
-    // функция вызова jQuery-плагина
-    // $.fn.fsdSlider = function() { // super test
-
     $.fn.fsdSlider = function (options: UserOptions) {
         const init = (elem: JQuery) => {
             const view = new View(elem);
@@ -23,8 +20,5 @@ export default (function ($) {
         });
 
         return this;
-
-        // init();
-        // return this;
     };
 }(jQuery));
