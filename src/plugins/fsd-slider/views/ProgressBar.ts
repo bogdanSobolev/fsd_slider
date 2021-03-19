@@ -28,7 +28,7 @@ export default class ProgressBar {
         if (value) {
             let percentLeft: number;
             let percentRight: number;
-            if(value.right){
+            if (value.right) {
                 percentLeft = this.countPersent(value.left);
                 percentRight = this.countPersent(value.right);
             } else {

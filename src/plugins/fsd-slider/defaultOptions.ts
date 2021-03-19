@@ -1,4 +1,4 @@
-import {Options} from './types';
+import { Options } from './types';
 
 export const defaultOptions: Options = {
     mod: 'range',
@@ -9,4 +9,4 @@ export const defaultOptions: Options = {
         right: 80,
     },
     step: 1,
-}
+};

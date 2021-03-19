@@ -1,8 +1,8 @@
-import Presenter from './presenters/PresenterTs';
+import Presenter from './presenters/Presenter';
 import Model from './models/Model';
 import View from './views/View';
 
-import {UserOptions} from './types';
+import { UserOptions } from './types';
 
 export default (function ($) {
     $.fn.fsdSlider = function (options: UserOptions) {

@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
 import Observable from '../observable/Observable';
-import {defaultOptions} from '../defaultOptions';
-import {Options, UserOptions} from '../types';
+import { defaultOptions } from '../defaultOptions';
+import { UserOptions } from '../types';
 // import value from '*.html';
 
 export default class Model extends Observable {
@@ -24,14 +24,17 @@ export default class Model extends Observable {
         super();
         this.mod = options?.mod ? this.setMod(options.mod) : defaultOptions.mod;
         this.step = options?.step ? this.setStep(options.step) : defaultOptions.step;
-        this.maxValue = options?.maxValue ? this.setMaxValue(options.maxValue) : defaultOptions.maxValue;
-        this.minValue = options?.minValue ? this.setMinValue(options.minValue) : defaultOptions.minValue;
+        this.maxValue = options?.maxValue ?
+            this.setMaxValue(options.maxValue) :
+            defaultOptions.maxValue;
+        this.minValue = options?.minValue ?
+            this.setMinValue(options.minValue) :
+            defaultOptions.minValue;
         this.value = options?.value ? this.setValue(options.value) : defaultOptions.value;
         this.handleUpdatedValue = this.handleUpdatedValue.bind(this);
     }
 
     init() {
-        console.log(this.mod);
         return {
             mod: this.mod,
             maxValue: this.maxValue,
@@ -41,29 +44,29 @@ export default class Model extends Observable {
         };
     }
 
-    setMod(value: string){
+    setMod(value: string) {
         const isValidValueMod: boolean = value === 'range' || value === 'single';
-        if(isValidValueMod){
+        if (isValidValueMod) {
             this.mod = value;
         } else {
             this.mod = defaultOptions.mod;
         }
-        return this.mod
+        return this.mod;
     }
 
-    setStep(value: number | string){
+    setStep(value: number | string) {
         const valueNum: number = Number(value);
-        if(valueNum){
+        if (valueNum) {
             this.step = valueNum;
         } else {
             this.step = defaultOptions.step;
         }
-        return this.step
+        return this.step;
     }
 
-    setMinValue(value: number | string){
+    setMinValue(value: number | string) {
         const valueNum: number = Number(value);
-        if(valueNum){
+        if (valueNum) {
             this.minValue = valueNum;
         } else {
             this.minValue = defaultOptions.minValue;
@@ -71,9 +74,9 @@ export default class Model extends Observable {
         return this.minValue;
     }
 
-    setMaxValue(value: number | string){
+    setMaxValue(value: number | string) {
         const valueNum: number = Number(value);
-        if(valueNum){
+        if (valueNum) {
             this.maxValue = valueNum;
         } else {
             this.maxValue = defaultOptions.maxValue;
@@ -81,16 +84,16 @@ export default class Model extends Observable {
         return this.maxValue;
     }
 
-    setValue(value: number | string | {left: number | string, right: number | string}){
-        const isModRange = this.mod == 'range';
-        if (isModRange){
-            if(typeof value == 'object'){
-                const valueObjNumbers: {left: number, right: number} = {
-                left: Number(value.left),
-                right: Number(value.right)
-                }
+    setValue(value: number | string | { left: number | string, right: number | string }) {
+        const isModRange = this.mod === 'range';
+        if (isModRange) {
+            if (typeof value === 'object') {
+                const valueObjNumbers: { left: number, right: number } = {
+                    left: Number(value.left),
+                    right: Number(value.right),
+                };
                 const isValueObjectNumbersValuesDefined = valueObjNumbers.left && valueObjNumbers.right;
-                if(isValueObjectNumbersValuesDefined){
+                if (isValueObjectNumbersValuesDefined) {
                     this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
                 } else {
                     this.value = defaultOptions.value;
@@ -98,7 +101,7 @@ export default class Model extends Observable {
             }
         } else {
             const valueNum = Number(value);
-            if(valueNum){
+            if (valueNum) {
                 this.value = { left: valueNum };
             }
         }
@@ -120,10 +123,10 @@ export default class Model extends Observable {
 
     updateValue(value: number[]) {
         // this.setValue(value);
-        if(value[1]){
+        if (value[1]) {
             this.value = { left: value[0], right: value[1] };
         } else {
-            this.value = { left: value[0]};
+            this.value = { left: value[0] };
         }
         this.handleUpdatedValue();
     }
