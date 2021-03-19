@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 import progressBarTmp from '../tmps/progress-bar/fsd-slider__progress-bar.html';
 import '../tmps/progress-bar/fsd-slider__progress-bar.scss';
 

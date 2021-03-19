@@ -1,10 +1,11 @@
 import $ from 'jquery';
-import '../tmps/view/fsd-slider.scss';
-import {Options} from '../types';
+
 import Observable from '../observable/Observable';
+import {Options} from '../types';
 import Scale from './Scale';
 import Roller from './Roller';
 import ProgressBar from './ProgressBar';
+import '../tmps/view/fsd-slider.scss';
 
 export default class View extends Observable {
     $rootInput: JQuery;

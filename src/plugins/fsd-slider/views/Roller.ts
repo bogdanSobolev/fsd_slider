@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 import rollerTmp from '../tmps/roller/fsd-slider__roller.html';
 import '../tmps/roller/fsd-slider__roller.scss';
 

@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Observable from '../observable/Observable';
 import {defaultOptions} from '../defaultOptions';
 import {Options, UserOptions} from '../types';
-import value from '*.html';
+// import value from '*.html';
 
 export default class Model extends Observable {
     mod: string;
