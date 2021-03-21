@@ -50,7 +50,7 @@ export default class ProgressBar {
     }
 
     createProgressBar() {
-        const $progressBar = $(progressBarTmp);
+        const $progressBar:JQuery = $(progressBarTmp);
         return $progressBar;
     }
 

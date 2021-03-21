@@ -6,13 +6,13 @@ import '../tmps/roller/fsd-slider__roller.scss';
 export default class Roller {
     $scale: JQuery;
 
-    $rollerElem: null | JQuery;
+    $rollerElem: JQuery;
 
-    $rollerInput: null | JQuery;
+    $rollerInput: JQuery;
 
-    $rollerBtn: null | JQuery;
+    $rollerBtn: JQuery;
 
-    typeRoller: null | string;
+    typeRoller: string;
 
     sliderMinValue: number; // model
 
@@ -34,25 +34,22 @@ export default class Roller {
         handleChangeValue?: any,
     }) {
         this.$scale = options.$scale;
-        this.$rollerElem = null;
-        this.$rollerInput = null;
-        this.$rollerBtn = null;
-        this.typeRoller = options.typeRoller || null;
+        this.typeRoller = options.typeRoller;
         this.sliderMinValue = options.minValue;
         this.sliderMaxValue = options.maxValue;
         this.value = options.value;
         this.step = options.step;
+        // this.$rollerElem = null;
+        this.$rollerElem = this.initRollerElem();
+        this.$rollerInput = this.initRollerInput();
+        this.$rollerBtn = this.setRollerBtn();
+        // this.typeRoller = options.typeRoller || null;
+        
+        
         this.handleChangeValue = options.handleChangeValue || null;
     }
 
     init() {
-        const $rollerElem = this.createRollerElem();
-        this.renderRollerElem($rollerElem);
-        this.setRollerElem($rollerElem);
-        this.setRollerInput();
-        this.setOptionsRollerInput();
-        this.setValueRollerInput();
-        this.setRollerBtn();
         this.updatePositionRollerBtn();
 
         this.bindEventListeners();
@@ -67,24 +64,31 @@ export default class Roller {
         this.handleChangeValue();
     }
 
+    initRollerElem(){
+        const $rollerElem: JQuery = this.createRollerElem();
+        this.renderRollerElem($rollerElem);
+        return $rollerElem;
+    }
+
     createRollerElem() {
-        const $rollerElem = $(rollerTmp);
-        if (this.typeRoller) {
-            $rollerElem.addClass(`fsd-slider__roller_type_${this.typeRoller}`);
-        }
+        const $rollerElem:JQuery = $(rollerTmp);
+        $rollerElem.addClass(`fsd-slider__roller_type_${this.typeRoller}`);
         return $rollerElem;
     }
 
     renderRollerElem($rollerElem: JQuery) {
-        this.$scale?.append($rollerElem);
-    }
-
-    setRollerElem($rollerElem: JQuery) {
-        this.$rollerElem = $rollerElem;
+        this.$scale.append($rollerElem);
     }
 
     setValue(value: number) {
         this.value = value;
+    }
+
+    initRollerInput(){
+        const $rollerInput: JQuery = this.setRollerInput();
+        this.setOptionsRollerInput();
+        this.setValueRollerInput();
+        return $rollerInput;
     }
 
     setOptionsRollerInput() {
@@ -94,7 +98,11 @@ export default class Roller {
     }
 
     setValueRollerInput() {
-        this.$rollerInput?.val(this.value);
+        this.$rollerInput.val(this.value);
+    }
+
+    setRollerInput() {
+        return this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
     }
 
     updateValue(value?: number) {
@@ -111,16 +119,16 @@ export default class Roller {
         }
     }
 
-    setRollerInput() {
-        if (this.$rollerElem) {
-            this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
-        }
-    }
+    
+
+    // setRollerInput() {
+    //     if (this.$rollerElem) {
+    //         this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
+    //     }
+    // }
 
     setRollerBtn() {
-        if (this.$rollerElem) {
-            this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
-        }
+        return this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
     }
 
     // setValue() {
