@@ -96,33 +96,28 @@ export default class Model extends Observable {
                 if (isValueObjectNumbersValuesDefined) {
                     this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
                 } else {
-                    this.value = defaultOptions.value;
+                    throw new TypeError('Свойства value left и right должны быть либо числом, либо строками содержащими числа')
                 }
+            } else {
+                throw new TypeError('Для слайдера типа range необходим объект со свойствами left и right');
             }
         } else {
             const valueNum = Number(value);
             if (valueNum) {
                 this.value = { left: valueNum };
+            } else {
+                console.log(valueNum)
+                throw new TypeError('Свойство value должно быть числом или строкой с числом');
             }
         }
         return this.value;
     }
-
-    // setValue(value: number[]) {
-    //     if(value[1]){
-    //         this.value = { left: value[0], right: value[1] };
-    //     } else {
-    //         this.value = { left: value[0]};
-    //     }
-
-    // }
 
     handleUpdatedValue() {
         this.broadcast('updatedValue');
     }
 
     updateValue(value: number[]) {
-        // this.setValue(value);
         if (value[1]) {
             this.value = { left: value[0], right: value[1] };
         } else {
