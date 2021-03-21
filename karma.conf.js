@@ -87,6 +87,7 @@ module.exports = function(config) {
     webpack: {
       resolve: webpackConfig.resolve,
       module: webpackConfig.module,
+      plugins: webpackConfig.plugins,
       stats: {
         colors: true,
         modules: true,

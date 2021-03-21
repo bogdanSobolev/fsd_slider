@@ -40,7 +40,7 @@ export default class View extends Observable {
         if (this.sliderType === 'range') {
             this.$rootInput.val(`${value?.left} -- ${value?.right}`);// заглушка //setRootInputValue()
         } else {
-            this.$rootInput.val(`${value?.left}}`);// заглушка //etRootInputValue()
+            this.$rootInput.val(`${value?.left}`);// заглушка //etRootInputValue()
         }
         this.createRollers({
             step, value, minValue, maxValue,
