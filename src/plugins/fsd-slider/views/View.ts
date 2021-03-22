@@ -70,7 +70,7 @@ export default class View extends Observable {
         value: { left: number, right?: number },
         minValue: number,
         maxValue: number
-        }) {
+    }) {
         const {
             step, value, minValue, maxValue,
         } = options;

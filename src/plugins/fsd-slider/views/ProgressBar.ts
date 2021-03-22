@@ -39,7 +39,7 @@ export default class ProgressBar {
     }
 
     countPersent(value: number) {
-        let percent = ((value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
+        const percent = ((value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
         return Number(percent.toFixed(4));
     }
 

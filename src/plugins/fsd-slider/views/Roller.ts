@@ -44,8 +44,7 @@ export default class Roller {
         this.$rollerInput = this.initRollerInput();
         this.$rollerBtn = this.setRollerBtn();
         // this.typeRoller = options.typeRoller || null;
-        
-        
+
         this.handleChangeValue = options.handleChangeValue || null;
     }
 
@@ -63,7 +62,7 @@ export default class Roller {
         this.handleChangeValue();
     }
 
-    initRollerElem(){
+    initRollerElem() {
         const $rollerElem: JQuery = this.createRollerElem();
         this.renderRollerElem($rollerElem);
         return $rollerElem;
@@ -83,7 +82,7 @@ export default class Roller {
         this.value = value;
     }
 
-    initRollerInput(){
+    initRollerInput() {
         const $rollerInput: JQuery = this.setRollerInput();
         this.setOptionsRollerInput();
         this.setValueRollerInput();
@@ -101,26 +100,26 @@ export default class Roller {
     }
 
     setRollerInput() {
-        return this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
+        const $rollerInput: JQuery = this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
+        return $rollerInput;
     }
 
     updateValue(value?: number) {
         if (value) {
             this.setValue(value);
             this.setValueRollerInput();
-            // console.log(this.$rollerInput.val())
         } else {
             const inputValueStr: any = this.$rollerInput?.val() ? this.$rollerInput?.val() : null;
             const inputValueInt: number = Number(inputValueStr);
             if (inputValueStr) {
                 this.setValue(inputValueInt);
-                // console.log(this.$rollerInput.val())
             }
         }
     }
 
     setRollerBtn() {
-        return this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
+        const $rollerBtn: JQuery = this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
+        return $rollerBtn;
     }
 
     // setValue() {

@@ -1,4 +1,4 @@
-import $ from 'jquery';
+// import $ from 'jquery';
 
 import Observable from '../observable/Observable';
 import { defaultOptions } from '../defaultOptions';
@@ -24,12 +24,12 @@ export default class Model extends Observable {
         super();
         this.mod = options?.mod ? this.setMod(options.mod) : defaultOptions.mod;
         this.step = options?.step ? this.setStep(options.step) : defaultOptions.step;
-        this.maxValue = options?.maxValue ?
-            this.setMaxValue(options.maxValue) :
-            defaultOptions.maxValue;
-        this.minValue = options?.minValue ?
-            this.setMinValue(options.minValue) :
-            defaultOptions.minValue;
+        this.maxValue = options?.maxValue
+            ? this.setMaxValue(options.maxValue)
+            : defaultOptions.maxValue;
+        this.minValue = options?.minValue
+            ? this.setMinValue(options.minValue)
+            : defaultOptions.minValue;
         this.value = options?.value ? this.setValue(options.value) : defaultOptions.value;
         this.handleUpdatedValue = this.handleUpdatedValue.bind(this);
     }
@@ -96,7 +96,7 @@ export default class Model extends Observable {
                 if (isValueObjectNumbersValuesDefined) {
                     this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
                 } else {
-                    throw new TypeError('Свойства value left и right должны быть либо числом, либо строками содержащими числа')
+                    throw new TypeError('Свойства value left и right должны быть либо числом, либо строками содержащими числа');
                 }
             } else {
                 throw new TypeError('Для слайдера типа range необходим объект со свойствами left и right');
@@ -106,7 +106,6 @@ export default class Model extends Observable {
             if (valueNum) {
                 this.value = { left: valueNum };
             } else {
-                console.log(valueNum)
                 throw new TypeError('Свойство value должно быть числом или строкой с числом');
             }
         }
