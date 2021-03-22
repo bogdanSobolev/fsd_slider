@@ -51,12 +51,11 @@ export default class Roller {
 
     init() {
         this.updatePositionRollerBtn();
-
         this.bindEventListeners();
     }
 
     bindEventListeners() {
-        this.$rollerInput?.on('input', this.inputHandlers.bind(this));
+        this.$rollerInput.on('input', this.inputHandlers.bind(this));
     }
 
     inputHandlers() {
@@ -109,23 +108,16 @@ export default class Roller {
         if (value) {
             this.setValue(value);
             this.setValueRollerInput();
+            // console.log(this.$rollerInput.val())
         } else {
             const inputValueStr: any = this.$rollerInput?.val() ? this.$rollerInput?.val() : null;
-
+            const inputValueInt: number = Number(inputValueStr);
             if (inputValueStr) {
-                const inputValueInt: number = Number(inputValueStr);
                 this.setValue(inputValueInt);
+                // console.log(this.$rollerInput.val())
             }
         }
     }
-
-    
-
-    // setRollerInput() {
-    //     if (this.$rollerElem) {
-    //         this.$rollerInput = this.$rollerElem.find('.fsd-slider__roller-input');
-    //     }
-    // }
 
     setRollerBtn() {
         return this.$rollerBtn = this.$rollerElem.find('.fsd-slider__roller-btn');
