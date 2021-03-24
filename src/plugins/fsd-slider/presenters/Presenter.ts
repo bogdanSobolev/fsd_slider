@@ -12,7 +12,7 @@ export default class Presenter {
     }
 
     init() {
-        const options = this.model.init();
+        const options = this.model.getOptions();
         this.view.init(options);
 
         this.view.subscribe('changeInput', () => {
@@ -25,6 +25,11 @@ export default class Presenter {
 
         this.model.subscribe('updatedValue', () => {
             this.view.updateValue(this.model.getValue());
+        });
+
+        this.model.subscribe('updatedOptions', () => {
+            console.log('updated options');
+            // this.view.updateValue(this.model.getOptions());
         });
     }
 }

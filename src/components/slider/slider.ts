@@ -5,7 +5,14 @@ import './slider.scss';
 
 const $sliderList = $('.js-slider');
 
-$sliderList.each(function () {
-    $(this).fsdSlider({ mod: 'range', value: { left: '32', right: 42 }, maxValue: 99 });
-    // $(this).fsdSlider({ mod: 'single', value: '42', maxValue: 99 });
-});
+// $sliderList.each(function () {
+//     $(this).fsdSlider({ mod: 'range', value: { left: '32', right: 42 }, maxValue: 99 });
+// });
+
+// console.log($sliderList);
+$sliderList.fsdSlider({ mod: 'range', value: { left: '32', right: 42 }, maxValue: 99 });
+
+$sliderList.fsdSlider('update', {
+    maxValue: 150,
+})
+

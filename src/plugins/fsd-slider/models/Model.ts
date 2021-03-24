@@ -34,7 +34,7 @@ export default class Model extends Observable {
         this.handleUpdatedValue = this.handleUpdatedValue.bind(this);
     }
 
-    init() {
+    getOptions() {
         return {
             mod: this.mod,
             maxValue: this.maxValue,
@@ -42,6 +42,14 @@ export default class Model extends Observable {
             value: this.value,
             step: this.step,
         };
+    }
+
+    setOptions(options){
+        this.setMod(options.mod);
+        this.setStep(options.step);
+        this.setMinValue(options.minValue);
+        this.setMaxValue(options.maxValue);
+        this.setValue(options.value);
     }
 
     setMod(value: string) {
@@ -116,6 +124,10 @@ export default class Model extends Observable {
         this.broadcast('updatedValue');
     }
 
+    handleUpdatedOptions = () => {
+        this.broadcast('updatedOptions');
+    }
+
     // updateValue(value: number[]) {
     //     if (value[1]) {
     //         this.value = { left: value[0], right: value[1] };
@@ -146,6 +158,13 @@ export default class Model extends Observable {
             this.value = { left: value[0] };
         }
         this.handleUpdatedValue();
+    }
+
+    updateOptions(options){
+        const thisOptions = this.getOptions();
+        this.setOptions({...thisOptions, ...options});
+        console.log(this);
+        this.handleUpdatedOptions();
     }
 
     getValue() {

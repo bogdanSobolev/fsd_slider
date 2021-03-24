@@ -62,6 +62,10 @@ export default class View extends Observable {
         this.progressBar.setPosition(value);
     }
 
+    updateOptions(options: Options){
+        
+    }
+
     setSliderType(sliderType: string) {
         this.sliderType = sliderType;
     }
