@@ -25,8 +25,6 @@ export default class View extends Observable {
         this.$rootInput = $rootInput;
         this.$rootElem = this.initRootElem();
         this.sliderType = null;
-        this.handleChangeRootInput = this.handleChangeRootInput.bind(this);
-        this.handleChangeValue = this.handleChangeValue.bind(this);
         this.scale = new Scale(this.$rootElem);
         this.progressBar = new ProgressBar(this.getScaleElem());
         this.rollers = [];
@@ -95,7 +93,7 @@ export default class View extends Observable {
         }
     }
 
-    handleChangeValue() {
+    handleChangeValue = () => {
         this.broadcast('changeValue');
     }
 
@@ -125,7 +123,7 @@ export default class View extends Observable {
         this.$rootInput.on('change', this.handleChangeRootInput);
     }
 
-    handleChangeRootInput() {
+    handleChangeRootInput = () => {
         this.broadcast('changeInput');
     }
 
