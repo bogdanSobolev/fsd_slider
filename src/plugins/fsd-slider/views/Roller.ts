@@ -39,11 +39,9 @@ export default class Roller {
         this.sliderMaxValue = options.maxValue;
         this.value = options.value;
         this.step = options.step;
-        // this.$rollerElem = null;
         this.$rollerElem = this.initRollerElem();
         this.$rollerInput = this.initRollerInput();
         this.$rollerBtn = this.setRollerBtn();
-        // this.typeRoller = options.typeRoller || null;
 
         this.handleChangeValue = options.handleChangeValue || null;
     }
@@ -57,8 +55,9 @@ export default class Roller {
         this.$rollerInput.on('input', this.inputHandlers.bind(this));
     }
 
-    inputHandlers() {
-        this.updatePositionRollerBtn();
+    inputHandlers = () => {
+        const inputValue = Number(this.$rollerInput.val());
+        this.setValue(inputValue);
         this.handleChangeValue();
     }
 
@@ -108,12 +107,7 @@ export default class Roller {
         if (value) {
             this.setValue(value);
             this.setValueRollerInput();
-        } else {
-            const inputValueStr: any = this.$rollerInput?.val() ? this.$rollerInput?.val() : null;
-            const inputValueInt: number = Number(inputValueStr);
-            if (inputValueStr) {
-                this.setValue(inputValueInt);
-            }
+            this.updatePositionRollerBtn()
         }
     }
 
@@ -138,8 +132,16 @@ export default class Roller {
         return this.value;
     }
 
+    // updatePositionRollerBtn() {
+    //     this.updateValue();
+    //     const percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
+    //     if (this.typeRoller === 'right') {
+    //         this.$rollerBtn?.css('right', `${100 - percent}%`);
+    //     } else {
+    //         this.$rollerBtn?.css('left', `${percent}%`);
+    //     }
+    // }
     updatePositionRollerBtn() {
-        this.updateValue();
         const percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
         if (this.typeRoller === 'right') {
             this.$rollerBtn?.css('right', `${100 - percent}%`);

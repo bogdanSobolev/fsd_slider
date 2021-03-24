@@ -116,9 +116,32 @@ export default class Model extends Observable {
         this.broadcast('updatedValue');
     }
 
+    // updateValue(value: number[]) {
+    //     if (value[1]) {
+    //         this.value = { left: value[0], right: value[1] };
+    //     } else {
+    //         this.value = { left: value[0] };
+    //     }
+    //     this.handleUpdatedValue();
+    // }
+
     updateValue(value: number[]) {
-        if (value[1]) {
-            this.value = { left: value[0], right: value[1] };
+        const isRangeMod = this.mod === 'range';
+        if (isRangeMod) {
+            let leftVal = value[0];
+            let rightVal = value[1];
+            const isValueLeftChange = value[0] != this.value.left;
+            const isValueLeftMoreOrEqualRight = value[0] >= value[1];
+            const isValueLeftNeedsUpdate = isValueLeftChange && isValueLeftMoreOrEqualRight;
+            const isValueRightChange = value[1] != this.value.right;
+            const isValueRightLessOrEqualLeft = value[1] <= value[0];
+            const isValueRightNeedsUpdate = isValueRightChange && isValueRightLessOrEqualLeft;
+            if(isValueLeftNeedsUpdate){
+                leftVal = value[1] - this.step;
+            } else if(isValueRightNeedsUpdate){
+                rightVal = value[0] + this.step;
+            }
+            this.value = { left: leftVal, right: rightVal };
         } else {
             this.value = { left: value[0] };
         }

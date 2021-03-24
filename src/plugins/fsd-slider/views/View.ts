@@ -53,8 +53,11 @@ export default class View extends Observable {
     updateValue(value: { left: number, right?: number }) {
         if (this.sliderType === 'range') {
             this.$rootInput.val(`${value.left} -- ${value.right}`);
+            this.rollers[0].roller.updateValue(value.left);
+            this.rollers[1].roller.updateValue(value.right);
         } else {
             this.$rootInput.val(`${value.left}`);
+            this.rollers[0].roller.updateValue(value.left);
         }
         this.progressBar.setPosition(value);
     }
