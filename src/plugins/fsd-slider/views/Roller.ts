@@ -116,31 +116,10 @@ export default class Roller {
         return $rollerBtn;
     }
 
-    // setValue() {
-    //     // var _this = inputLeft,                                                          //
-    //     //     min = parseInt(_this.min),                                                  //
-    //     //     max = parseInt(_this.max);                                                  //
-    //     // _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 1);  //позже
-
-    //     let percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
-
-    //     thumbLeft.style.left = percent + "%";
-    //     // range.style.left = percent + "%";  //позже
-    // }
-
     getValue() {
         return this.value;
     }
 
-    // updatePositionRollerBtn() {
-    //     this.updateValue();
-    //     const percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
-    //     if (this.typeRoller === 'right') {
-    //         this.$rollerBtn?.css('right', `${100 - percent}%`);
-    //     } else {
-    //         this.$rollerBtn?.css('left', `${percent}%`);
-    //     }
-    // }
     updatePositionRollerBtn() {
         const percent = ((this.value - this.sliderMinValue) / (this.sliderMaxValue - this.sliderMinValue)) * 100;
         if (this.typeRoller === 'right') {
