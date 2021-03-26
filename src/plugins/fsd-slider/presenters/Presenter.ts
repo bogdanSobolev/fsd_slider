@@ -20,6 +20,7 @@ export default class Presenter {
         });
 
         this.view.subscribe('changeValue', () => {
+            // console.log(this.view.getValue());
             this.model.updateValue(this.view.getValue());
         });
 
@@ -28,8 +29,7 @@ export default class Presenter {
         });
 
         this.model.subscribe('updatedOptions', () => {
-            console.log('updated options');
-            // this.view.updateValue(this.model.getOptions());
+            this.view.updateOptions(this.model.getOptions());
         });
     }
 }

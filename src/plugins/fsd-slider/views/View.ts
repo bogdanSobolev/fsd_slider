@@ -44,7 +44,7 @@ export default class View extends Observable {
             step, value, minValue, maxValue,
         });
         this.initRollers();
-        this.progressBar.setMinMax(minValue, maxValue);
+        this.progressBar.setMinMaxValues({ minValue, maxValue });
         this.progressBar.setPosition(value);
 
         this.bindEventListeners();
@@ -62,8 +62,34 @@ export default class View extends Observable {
         this.progressBar.setPosition(value);
     }
 
-    updateOptions(options: Options){
-        
+    updateOptions(options: Options) {
+        const {
+            step, value, minValue, maxValue,
+        } = options;
+        if (this.sliderType === 'range' && value.right) {
+            this.rollers[0].roller.updateOptions({ // updatet options
+                minValue,
+                maxValue,
+                step,
+                value: value.left,
+            });
+            this.rollers[1].roller.updateOptions({
+                minValue,
+                maxValue,
+                step,
+                value: value.right,
+            });
+            this.$rootInput.val(`${value.left} -- ${value.right}`);
+        } else {
+            this.rollers[0].roller.updateOptions({ // updatet options
+                minValue,
+                maxValue,
+                step,
+                value: value.left,
+            });
+            this.$rootInput.val(`${value.left}`);
+        }
+        this.progressBar.updateOptions({ minValue, maxValue, value });
     }
 
     setSliderType(sliderType: string) {
@@ -102,7 +128,7 @@ export default class View extends Observable {
 
     handleChangeValue = () => {
         this.broadcast('changeValue');
-    }
+    };
 
     getValue() {
         const newValue: number[] = [];
@@ -132,7 +158,7 @@ export default class View extends Observable {
 
     handleChangeRootInput = () => {
         this.broadcast('changeInput');
-    }
+    };
 
     consoleVal() {
         console.log(this.getValue());

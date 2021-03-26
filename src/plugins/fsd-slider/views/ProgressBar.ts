@@ -19,9 +19,15 @@ export default class ProgressBar {
         this.$progressBar = this.initProgressBar();
     }
 
-    setMinMax(minValue: number, maxValue: number) {
-        this.sliderMinValue = minValue;
-        this.sliderMaxValue = maxValue;
+    setMinMaxValues(options: {
+        minValue: number,
+        maxValue: number,
+    }) {
+        const {
+            minValue, maxValue,
+        } = options;
+        this.setSliderMinValue(minValue);
+        this.setSliderMaxValue(maxValue);
     }
 
     setPosition(value: { left: number, right?: number }) {
@@ -36,6 +42,29 @@ export default class ProgressBar {
         }
         this.$progressBar.css('left', `${percentLeft}%`);
         this.$progressBar.css('right', `${100 - percentRight}%`);
+    }
+
+    updateOptions(options: {
+        minValue: number,
+        maxValue: number,
+        value: {
+            left: number,
+            right?: number
+        }
+    }) {
+        const {
+            minValue, maxValue, value,
+        } = options;
+        this.setMinMaxValues({ minValue, maxValue });
+        this.setPosition(value);
+    }
+
+    setSliderMinValue(value: number) {
+        this.sliderMinValue = value;
+    }
+
+    setSliderMaxValue(value: number) {
+        this.sliderMaxValue = value;
     }
 
     countPersent(value: number) {

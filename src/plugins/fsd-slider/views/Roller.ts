@@ -52,14 +52,14 @@ export default class Roller {
     }
 
     bindEventListeners() {
-        this.$rollerInput.on('input', this.inputHandlers.bind(this));
+        this.$rollerInput.on('input', this.handleInputInput.bind(this));
     }
 
-    inputHandlers = () => {
+    handleInputInput = () => {
         const inputValue = Number(this.$rollerInput.val());
         this.setValue(inputValue);
         this.handleChangeValue();
-    }
+    };
 
     initRollerElem() {
         const $rollerElem: JQuery = this.createRollerElem();
@@ -89,9 +89,53 @@ export default class Roller {
     }
 
     setOptionsRollerInput() {
-        this.$rollerInput?.attr('step', this.step);
-        this.$rollerInput?.attr('min', this.sliderMinValue);
-        this.$rollerInput?.attr('max', this.sliderMaxValue);
+        this.$rollerInput.attr('step', this.step);
+        this.$rollerInput.attr('min', this.sliderMinValue);
+        this.$rollerInput.attr('max', this.sliderMaxValue);
+    }
+
+    setStep(value: number) {
+        this.step = value;
+    }
+
+    updateOptions(options: {
+        step: number,
+        minValue: number,
+        maxValue: number,
+        value: number
+    }) {
+        const {
+            step, value, minValue, maxValue,
+        } = options;
+        this.setStep(step);
+        this.updateMinMaxValues({ minValue, maxValue });
+
+        this.setOptionsRollerInput();
+        this.updateValue(value);
+
+        const isInputValueAdjustedToStep = this.value !== Number(this.$rollerInput.val());
+        if (isInputValueAdjustedToStep) {
+            setTimeout(this.handleInputInput, 0);
+        }
+    }
+
+    updateMinMaxValues(options: {
+        minValue: number,
+        maxValue: number,
+    }) {
+        const {
+            minValue, maxValue,
+        } = options;
+        this.setSliderMinValue(minValue);
+        this.setSliderMaxValue(maxValue);
+    }
+
+    setSliderMinValue(value: number) {
+        this.sliderMinValue = value;
+    }
+
+    setSliderMaxValue(value: number) {
+        this.sliderMaxValue = value;
     }
 
     setValueRollerInput() {
@@ -107,7 +151,7 @@ export default class Roller {
         if (value) {
             this.setValue(value);
             this.setValueRollerInput();
-            this.updatePositionRollerBtn()
+            this.updatePositionRollerBtn();
         }
     }
 

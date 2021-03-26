@@ -44,13 +44,16 @@ export default class Model extends Observable {
         };
     }
 
-    setOptions(options){
-        this.setMod(options.mod);
-        this.setStep(options.step);
-        this.setMinValue(options.minValue);
-        this.setMaxValue(options.maxValue);
-        this.setValue(options.value);
-    }
+    // setOptions(options: UserOptions){
+    //     const {
+    //         minValue, maxValue,
+    //     } = options;
+    //     this.setMod(options.mod);
+    //     this.setStep(options.step);
+    //     this.setMinValue(minValue);
+    //     this.setMaxValue(options.maxValue);
+    //     this.setValue(options.value);
+    // }
 
     setMod(value: string) {
         const isValidValueMod: boolean = value === 'range' || value === 'single';
@@ -126,31 +129,22 @@ export default class Model extends Observable {
 
     handleUpdatedOptions = () => {
         this.broadcast('updatedOptions');
-    }
-
-    // updateValue(value: number[]) {
-    //     if (value[1]) {
-    //         this.value = { left: value[0], right: value[1] };
-    //     } else {
-    //         this.value = { left: value[0] };
-    //     }
-    //     this.handleUpdatedValue();
-    // }
+    };
 
     updateValue(value: number[]) {
         const isRangeMod = this.mod === 'range';
         if (isRangeMod) {
             let leftVal = value[0];
             let rightVal = value[1];
-            const isValueLeftChange = value[0] != this.value.left;
+            const isValueLeftChange = value[0] !== this.value.left;
             const isValueLeftMoreOrEqualRight = value[0] >= value[1];
             const isValueLeftNeedsUpdate = isValueLeftChange && isValueLeftMoreOrEqualRight;
-            const isValueRightChange = value[1] != this.value.right;
+            const isValueRightChange = value[1] !== this.value.right;
             const isValueRightLessOrEqualLeft = value[1] <= value[0];
             const isValueRightNeedsUpdate = isValueRightChange && isValueRightLessOrEqualLeft;
-            if(isValueLeftNeedsUpdate){
+            if (isValueLeftNeedsUpdate) {
                 leftVal = value[1] - this.step;
-            } else if(isValueRightNeedsUpdate){
+            } else if (isValueRightNeedsUpdate) {
                 rightVal = value[0] + this.step;
             }
             this.value = { left: leftVal, right: rightVal };
@@ -160,10 +154,14 @@ export default class Model extends Observable {
         this.handleUpdatedValue();
     }
 
-    updateOptions(options){
-        const thisOptions = this.getOptions();
-        this.setOptions({...thisOptions, ...options});
-        console.log(this);
+    updateOptions(options: UserOptions) {
+        const {
+            minValue, maxValue, step, value,
+        } = options;
+        if (step) this.setStep(step);
+        if (minValue) this.setMinValue(minValue);
+        if (maxValue) this.setMaxValue(maxValue);
+        if (value) this.setValue(value);
         this.handleUpdatedOptions();
     }
 

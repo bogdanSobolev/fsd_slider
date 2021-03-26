@@ -1,0 +1,14 @@
+include ../slider/slider
+
+mixin slider-demo()
+    .slider-demo.js-slider-demo
+        .slider-demo__slider.js-slider-demo__slider
+            +slider()
+        form(action="#", method="get").slider-demo__options-form.js-slider-demo__options-form
+            label() min value 
+                input(type="text" name='minValue')
+            label() max value 
+                input(type="text" name='maxValue')
+            label() step 
+                input(type="text" name='step')
+            button(type="submit") обновить настройки

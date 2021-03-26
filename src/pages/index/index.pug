@@ -1,4 +1,5 @@
 include ../../components/slider/slider
+include ../../components/slider-demo/slider-demo
 
 <!DOCTYPE html>
 html(lang="en")
@@ -11,7 +12,7 @@ html(lang="en")
             header.header
                 h1.header__title SLIDER
             main.main main
-                .main__slider
-                    +slider({placeholder:"test-1"})
                 //- .main__slider
-                //-     +slider({placeholder:"test-2"})
+                //-     +slider()
+                .main__slider
+                    +slider-demo()
