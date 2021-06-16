@@ -79,6 +79,7 @@ export default class Roller {
 
     setValue(value: number) {
         this.value = value;
+        // console.log(value);
     }
 
     initRollerInput() {
@@ -147,12 +148,19 @@ export default class Roller {
         return $rollerInput;
     }
 
-    updateValue(value?: number) {
-        if (value) {
-            this.setValue(value);
-            this.setValueRollerInput();
-            this.updatePositionRollerBtn();
-        }
+    // updateValue(value?: number) {
+    //     if (value) {
+    //         // console.log(value);
+    //         this.setValue(value);
+    //         this.setValueRollerInput();
+    //         this.updatePositionRollerBtn();
+    //     }
+    // }
+
+    updateValue(value: number) {
+        this.setValue(value);
+        this.setValueRollerInput();
+        this.updatePositionRollerBtn();
     }
 
     setRollerBtn() {

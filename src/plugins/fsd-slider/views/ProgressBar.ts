@@ -33,7 +33,8 @@ export default class ProgressBar {
     setPosition(value: { left: number, right?: number }) {
         let percentLeft: number;
         let percentRight: number;
-        if (value.right) {
+        if (typeof value.right != 'undefined') {
+        // if (value.right) {
             percentLeft = this.countPersent(value.left);
             percentRight = this.countPersent(value.right);
         } else {
@@ -41,6 +42,7 @@ export default class ProgressBar {
             percentRight = this.countPersent(value.left);
         }
         this.$progressBar.css('left', `${percentLeft}%`);
+        // console.log(percentLeft, percentRight);
         this.$progressBar.css('right', `${100 - percentRight}%`);
     }
 
@@ -56,6 +58,7 @@ export default class ProgressBar {
             minValue, maxValue, value,
         } = options;
         this.setMinMaxValues({ minValue, maxValue });
+        // console.log(value + 'values');
         this.setPosition(value);
     }
 

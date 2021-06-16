@@ -51,7 +51,7 @@ export default class View extends Observable {
     }
 
     updateValue(value: { left: number, right?: number }) {
-        if (this.sliderType === 'range') {
+        if (this.sliderType === 'range' && typeof value.right != 'undefined') {
             this.$rootInput.val(`${value.left} -- ${value.right}`);
             this.rollers[0].roller.updateValue(value.left);
             this.rollers[1].roller.updateValue(value.right);
@@ -66,7 +66,8 @@ export default class View extends Observable {
         const {
             step, value, minValue, maxValue,
         } = options;
-        if (this.sliderType === 'range' && value.right) {
+        // if (this.sliderType === 'range' && value.right) {
+        if (this.sliderType === 'range' && typeof value.right != 'undefined') {
             this.rollers[0].roller.updateOptions({ // updatet options
                 minValue,
                 maxValue,

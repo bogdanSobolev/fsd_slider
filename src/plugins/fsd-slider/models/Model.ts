@@ -77,17 +77,20 @@ export default class Model extends Observable {
 
     setMinValue(value: number | string) {
         const valueNum: number = Number(value);
-        if (valueNum) {
+        // console.log(valueNum)
+        if (!Number.isNaN(valueNum)) {
             this.minValue = valueNum;
-        } else {
-            this.minValue = defaultOptions.minValue;
-        }
+        } 
+        // else {
+        //     this.minValue = defaultOptions.minValue;
+        //     // console.log(valueNum)
+        // }
         return this.minValue;
     }
 
     setMaxValue(value: number | string) {
         const valueNum: number = Number(value);
-        if (valueNum) {
+        if (!Number.isNaN(valueNum)) {
             this.maxValue = valueNum;
         } else {
             this.maxValue = defaultOptions.maxValue;
@@ -103,7 +106,7 @@ export default class Model extends Observable {
                     left: Number(value.left),
                     right: Number(value.right),
                 };
-                const isValueObjectNumbersValuesDefined = valueObjNumbers.left && valueObjNumbers.right;
+                const isValueObjectNumbersValuesDefined = (valueObjNumbers.left || valueObjNumbers.left === 0) && (valueObjNumbers.right || valueObjNumbers.right === 0);
                 if (isValueObjectNumbersValuesDefined) {
                     this.value = { left: valueObjNumbers.left, right: valueObjNumbers.right };
                 } else {
@@ -143,6 +146,7 @@ export default class Model extends Observable {
             const isValueRightLessOrEqualLeft = value[1] <= value[0];
             const isValueRightNeedsUpdate = isValueRightChange && isValueRightLessOrEqualLeft;
             if (isValueLeftNeedsUpdate) {
+                // console.log('left more right')
                 leftVal = value[1] - this.step;
             } else if (isValueRightNeedsUpdate) {
                 rightVal = value[0] + this.step;
@@ -160,6 +164,7 @@ export default class Model extends Observable {
         } = options;
         if (step) this.setStep(step);
         if (minValue) this.setMinValue(minValue);
+        // if (minValue) this.setMinValue(minValue);
         if (maxValue) this.setMaxValue(maxValue);
         if (value) this.setValue(value);
         this.handleUpdatedOptions();
